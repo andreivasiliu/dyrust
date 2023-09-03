@@ -3,8 +3,9 @@
 
 { callPackage }:
 let
-  dypkgs = {
-    buildDyRustModule = callPackage ./builder.nix { };
+  dypkgs = rec {
+    libstd = callPackage ./libstd.nix { };
+    buildDyRustModule = callPackage ./builder.nix { inherit libstd; };
 
     pkgs = callPackage ./pkgs { inherit dypkgs; };
   };
